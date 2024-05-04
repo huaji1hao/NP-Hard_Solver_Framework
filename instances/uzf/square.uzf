@@ -1,0 +1,13 @@
+NAME : square
+COMMENT : square by warren g. jackson
+PREPARATION_AREA
+0 0
+ENCLOSURE_LOCATIONS
+0 5
+5 0
+10 0
+10 5
+10 10
+5 10
+0 10
+EOF
