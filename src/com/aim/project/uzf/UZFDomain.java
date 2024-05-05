@@ -36,13 +36,13 @@ public class UZFDomain extends ProblemDomain implements Visualisable {
 		ruin_recreate = new int[]{};
 
 		this.setDepthOfSearch(0.6);
-		this.setIntensityOfMutation(0.4);
+		this.setIntensityOfMutation(0.3);
 	}
 
 	@Override
 	public int getNumberOfHeuristics() {
 		// has to be hard-coded due to the design of the HyFlex framework
-		return 10;
+		return 11;
 	}
 	
 	@Override
@@ -56,7 +56,7 @@ public class UZFDomain extends ProblemDomain implements Visualisable {
 			case 3 -> heuristic = new Reinsertion(rng);
 			case 4 -> heuristic = new AdjacentSwap(rng);
 			case 6 -> heuristic = new EdgeRecombination(rng);
-//			case 7 -> heuristic = new RandomSwap(rng);
+			case 8 -> heuristic = new RandomSwap(rng);
             default -> {
 				heuristic = new SegmentInversion(rng);
             }
