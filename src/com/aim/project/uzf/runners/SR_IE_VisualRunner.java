@@ -4,6 +4,7 @@ package com.aim.project.uzf.runners;
 import com.aim.project.uzf.hyperheuristics.SR_IE_HH;
 
 import AbstractClasses.HyperHeuristic;
+import com.aim.project.uzf.hyperheuristics.TB_IE_HH;
 
 /**
  * @author Warren G Jackson
@@ -19,6 +20,7 @@ public class SR_IE_VisualRunner extends HH_Runner_Visual {
 	@Override
 	protected HyperHeuristic getHyperHeuristic(long seed) {
 
+//		return new TB_IE_HH(seed);
 		return new SR_IE_HH(seed);
 	}
 	
