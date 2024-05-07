@@ -31,7 +31,6 @@ public class UZFDomain extends ProblemDomain implements Visualisable {
 		super(seed);
 		mutations = new int[]{3, 4};
 		localSearches = new int[]{0, 1, 2, 6, 7};
-//		crossovers = new int[]{};
 		crossovers = new int[]{5};
 		ruin_recreate = new int[]{};
 
@@ -42,7 +41,7 @@ public class UZFDomain extends ProblemDomain implements Visualisable {
 	@Override
 	public int getNumberOfHeuristics() {
 		// has to be hard-coded due to the design of the HyFlex framework
-		return 11;
+		return 10;
 	}
 	
 	@Override
@@ -56,10 +55,8 @@ public class UZFDomain extends ProblemDomain implements Visualisable {
 			case 3 -> heuristic = new Reinsertion(rng);
 			case 4 -> heuristic = new AdjacentSwap(rng);
 			case 6 -> heuristic = new EdgeRecombination(rng);
-			case 8 -> heuristic = new RandomSwap(rng);
-            default -> {
-				heuristic = new SegmentInversion(rng);
-            }
+			case 7 -> heuristic = new RandomSwap(rng);
+            default -> heuristic = new SegmentInversion(rng);
         }
 
 		heuristic.setObjectiveFunction(instance.getUZFObjectiveFunction());
