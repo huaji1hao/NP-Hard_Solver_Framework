@@ -1,6 +1,7 @@
 package com.aim.project.uzf.runners;
 
 
+import com.aim.project.uzf.hyperheuristics.MCF_HH;
 import com.aim.project.uzf.hyperheuristics.SR_IE_HH;
 
 import AbstractClasses.HyperHeuristic;
@@ -21,7 +22,8 @@ public class SR_IE_VisualRunner extends HH_Runner_Visual {
 	protected HyperHeuristic getHyperHeuristic(long seed) {
 
 //		return new TB_IE_HH(seed);
-		return new SR_IE_HH(seed);
+//		return new SR_IE_HH(seed);
+		return new MCF_HH(seed);
 	}
 	
 	public static void main(String [] args) {
