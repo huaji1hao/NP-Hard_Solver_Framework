@@ -46,13 +46,19 @@ public class HeuristicOperators {
 		}
 	}
 
+	// Swap the values at index1 and index2 in the solution representation
 	public void swapIndex(int[] solutionRepresentation, int index1, int index2) {
 		int temp = solutionRepresentation[index1];
 		solutionRepresentation[index1] = solutionRepresentation[index2];
 		solutionRepresentation[index2] = temp;
 	}
 
-	// If representation1 is better than representation2, return true; otherwise, return false
+	/**
+	 * Compare the objective function values of two solution representations
+	 * @param representation1 The first solution representation
+	 * @param representation2 The second solution representation
+	 * @param includeEquality Whether to include equality in the comparison
+	 */
 	public boolean compareRepresentation(int[] representation1, int[] representation2, boolean includeEquality) {
 		if(includeEquality){
 			return f.getObjectiveFunctionValue(new SolutionRepresentation(representation1)) <=
@@ -63,6 +69,7 @@ public class HeuristicOperators {
 		}
 	}
 
+	// Shuffle the permutation array using the Fisher-Yates shuffle algorithm
 	public int[] shufflePermutation(int[] array, Random rng) {
 		int k;
 		int temp;
@@ -75,6 +82,13 @@ public class HeuristicOperators {
 		return array;
 	}
 
+	/**
+	 * Calculate the delta value of swapping the values at index i and j in the solution representation
+	 * @param representation The solution representation
+	 * @param i The index of the first value to swap
+	 * @param j The index of the second value to swap
+	 * @return The delta value of swapping the values at index i and j
+	 */
 	protected int calculateSwapDelta(int[] representation, int i, int j) {
 		int delta = 0;
 
@@ -87,21 +101,18 @@ public class HeuristicOperators {
 		int locI = representation[i];
 		int locJ = representation[j];
 
-		// Swap logic for adding costs
-		if (i + 1 == j) { // If i and j are adjacent
+		// Swap logic for adjacent and non-adjacent locations
+		if (i + 1 == j) { // If i and j are adjacent and i is before j
 			delta -= f.getCost(prevI, locI);
 			delta -= f.getCost(locJ, nextJ);
 			delta += f.getCost(prevI, locJ);
 			delta += f.getCost(nextJ, locI);
-		} else if(j + 1 == i) { // If j and i are adjacent
+		} else if(j + 1 == i) { // If j and i are adjacent and j is before i
 			delta -= f.getCost(prevJ, locJ);
 			delta -= f.getCost(locI, nextI);
 			delta += f.getCost(prevJ, locI);
 			delta += f.getCost(nextI, locJ);
-
-		} // If i and j are not adjacent, then swap the connections around i and j
-		else {
-			// Non-adjacent general case
+		} else { // If i and j are not adjacent, then swap the connections around i and j
 			delta -= f.getCost(prevI, locI);
 			delta -= f.getCost(locI, nextI);
 			delta -= f.getCost(prevJ, locJ);

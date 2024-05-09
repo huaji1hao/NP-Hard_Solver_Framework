@@ -41,7 +41,8 @@ public class UZFDomain extends ProblemDomain implements Visualisable {
 		// has to be hard-coded due to the design of the HyFlex framework
 		return 10;
 	}
-	
+
+	// Unary heuristic
 	@Override
 	public double applyHeuristic(int hIndex, int currentIndex, int candidateIndex) {
 		// apply heuristic and return the objective value of the candidate solution
@@ -67,9 +68,9 @@ public class UZFDomain extends ProblemDomain implements Visualisable {
 		return value;
 	}
 
+	// Binary heuristic
 	@Override
 	public double applyHeuristic(int hIndex, int parent1Index, int parent2Index, int candidateIndex) {
-		// apply heuristic and return the objective value of the candidate solution
 		XOHeuristicInterface heuristic;
 		if(hIndex == 5) {
 			heuristic = new PMX(rng);
@@ -95,7 +96,7 @@ public class UZFDomain extends ProblemDomain implements Visualisable {
 		for(int i = 0; i < this.bestEverSolution.getNumberOfLocations() - 1; ++i) {
 			s.append(this.bestEverSolution.getSolutionRepresentation().getSolutionRepresentation()[i]).append(" ");
 		}
-		s.append("Objective Function Value: ").append(this.bestEverSolution.getObjectiveFunctionValue()).append("\n");
+		s.append("\nObjective Function Value: ").append(this.bestEverSolution.getObjectiveFunctionValue()).append("\n");
 
 		return s.toString();
 	}
@@ -214,7 +215,6 @@ public class UZFDomain extends ProblemDomain implements Visualisable {
 
 	@Override
 	public String toString() {
-
 		Location foodPreparationLocation = instance.getLocationOfFoodPreparationArea();
 		StringBuilder s = new StringBuilder();
 		s.append("UZF Instance:\n");
@@ -234,7 +234,7 @@ public class UZFDomain extends ProblemDomain implements Visualisable {
 		// make sure we cannot modify the best solution accidentally after storing it!
 		if (bestEverSolution == null || solutionMemory[index].getObjectiveFunctionValue() < getBestSolutionValue()) {
 			bestEverSolution = solutionMemory[index].clone();
-			System.out.println("New best solution found: " + bestEverSolution.getObjectiveFunctionValue());
+			System.out.println("Better solution found: " + bestEverSolution.getObjectiveFunctionValue());
 		}
 	}
 	

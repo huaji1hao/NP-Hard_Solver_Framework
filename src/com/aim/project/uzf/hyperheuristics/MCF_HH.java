@@ -74,8 +74,6 @@ public class MCF_HH extends HyperHeuristic {
         f2 = new int[numberOfHeuristics][numberOfHeuristics];
         f3 = new int[numberOfHeuristics];
 
-        initialFunction();
-
         // cache indices of crossover heuristics
         boolean[] isCrossover = new boolean[numberOfHeuristics];
         Arrays.fill(isCrossover, false);
@@ -153,20 +151,6 @@ public class MCF_HH extends HyperHeuristic {
         }
 
         return worstIndex;
-    }
-
-    /**
-     * Initializes the Modified Choice Function arrays to zero.
-     * This method initializes the Modified Choice Function arrays to zero,
-     * setting the frequency of heuristic success, pairwise heuristic success matrix,
-     * and time since last use of heuristic to zero.
-     */
-    private void initialFunction(){
-        for(int i = 0; i < f1.length; i++) {
-            f1[i] = 0;
-            f3[i] = 0;
-            Arrays.fill(f2[i], 0);
-        }
     }
 
     /**

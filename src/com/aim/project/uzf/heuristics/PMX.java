@@ -75,6 +75,13 @@ public class PMX implements XOHeuristicInterface {
 		return f.getObjectiveFunctionValue(c.getSolutionRepresentation());
 	}
 
+	/**
+	 * Resolves conflicts in the offspring by following the mapping until a conflict is resolved.
+	 * @param element The element to resolve
+	 * @param mapping The mapping to follow
+	 * @param offspring The offspring to resolve the conflict in
+	 * @return The resolved element
+	 */
 	private int resolveConflict(int element, Map<Integer, Integer> mapping, int[] offspring) {
 		HashSet<Integer> elementsInOffspring = new HashSet<>();
 		for (int val : offspring) elementsInOffspring.add(val);

@@ -29,7 +29,6 @@ public class UAVInstanceReader implements UAVInstanceReaderInterface {
 			boolean isPreparationArea = false;
 			Location foodPreparationLocation = null;
 			ArrayList<Location> locations = new ArrayList<>();
-			int locationCount = 0;
 
 			for (String line : lines) {
 				if (line.startsWith("PREPARATION_AREA")) {
@@ -53,9 +52,9 @@ public class UAVInstanceReader implements UAVInstanceReaderInterface {
 					int y = Integer.parseInt(parts[1]);
 
 					if (isPreparationArea) {
-						foodPreparationLocation = new Location(x, y);
+						foodPreparationLocation = new Location(-1, x, y);
 					} else {
-						locations.add(new Location(locationCount++, x, y));
+						locations.add(new Location(x, y));
 					}
 				}
 			}

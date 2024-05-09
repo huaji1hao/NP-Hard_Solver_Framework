@@ -47,9 +47,7 @@ public class UZFObjectiveFunction implements ObjectiveFunctionInterface {
 		if(iLocationA == iLocationB) return 0;
 		if(iLocationA == -1) return getCostBetweenFoodPreparationAreaAnd(iLocationB);
 		if(iLocationB == -1) return getCostBetweenFoodPreparationAreaAnd(iLocationA);
-		return (int) Math.ceil(Math.sqrt(
-				Math.pow(oInstance.getLocationForEnclosure(iLocationA).x() - oInstance.getLocationForEnclosure(iLocationB).x(), 2) +
-				Math.pow(oInstance.getLocationForEnclosure(iLocationA).y() - oInstance.getLocationForEnclosure(iLocationB).y(), 2)));
+		return getCost(oInstance.getLocationForEnclosure(iLocationA), oInstance.getLocationForEnclosure(iLocationB));
 	}
 
 	@Override
