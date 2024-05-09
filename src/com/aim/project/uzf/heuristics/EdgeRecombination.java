@@ -43,14 +43,21 @@ public class EdgeRecombination extends HeuristicOperators implements HeuristicIn
                 secondStart = temp;
             }
 
-            // Perform swaps
             // Swap end of first pair with start of second pair
-            swapIndex(representation, firstStart + 1, secondStart);
+            int delta = calculateSwapDelta(representation, firstStart + 1, secondStart);
 
-            // Check if the new solution is better
-            if (compareRepresentation(representation, solution.getSolutionRepresentation().getSolutionRepresentation(), true)) {
+            if(delta <= 0) {
+                swapIndex(representation, firstStart + 1, secondStart);
                 solution.getSolutionRepresentation().setSolutionRepresentation(representation);
             }
+
+            // Swap end of first pair with start of second pair
+//            swapIndex(representation, firstStart + 1, secondStart);
+//
+//            // Check if the new solution is better
+//            if (compareRepresentation(representation, solution.getSolutionRepresentation().getSolutionRepresentation(), true)) {
+//                solution.getSolutionRepresentation().setSolutionRepresentation(representation);
+//            }
         }
 
         return f.getObjectiveFunctionValue(solution.getSolutionRepresentation());

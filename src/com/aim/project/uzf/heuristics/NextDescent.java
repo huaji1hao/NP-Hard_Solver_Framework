@@ -39,17 +39,27 @@ public class NextDescent extends HeuristicOperators implements HeuristicInterfac
 				int currentIndex = (startIndex + j) % length;
 				int nextIndex = (currentIndex + 1) % length;
 
-				// Perform a swap
-				swapIndex(representation, currentIndex, nextIndex);
+				// Calculate delta cost of the swap
+				int delta = calculateSwapDelta(representation, currentIndex, nextIndex);
 
-				// Check if the new solution is better
-				if (compareRepresentation(representation, solution.getSolutionRepresentation().getSolutionRepresentation(), true)) {
+				// If delta cost shows improvement, update the total cost and break
+				if (delta <= 0) {
+					swapIndex(representation, currentIndex, nextIndex);
 					improved = true;
 					break; // Exit the inner loop if an improvement is found
-				} else {
-					// Swap back if not improved
-					swapIndex(representation, currentIndex, nextIndex);
 				}
+
+//				// Perform a swap
+//				swapIndex(representation, currentIndex, nextIndex);
+//
+//				// Check if the new solution is better
+//				if (compareRepresentation(representation, solution.getSolutionRepresentation().getSolutionRepresentation(), true)) {
+//					improved = true;
+//					break; // Exit the inner loop if an improvement is found
+//				} else {
+//					// Swap back if not improved
+//					swapIndex(representation, currentIndex, nextIndex);
+//				}
 			}
 
 			if(improved){

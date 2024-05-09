@@ -74,4 +74,46 @@ public class HeuristicOperators {
 		}
 		return array;
 	}
+
+	protected int calculateSwapDelta(int[] representation, int i, int j) {
+		int delta = 0;
+
+		// Boundary checks for food preparation area or end of list
+		int prevI = (i == 0) ? -1 : representation[i - 1];
+		int nextI = (i == representation.length - 1) ? -1 : representation[i + 1];
+		int prevJ = (j == 0) ? -1 : representation[j - 1];
+		int nextJ = (j == representation.length - 1) ? -1 : representation[j + 1];
+
+		int locI = representation[i];
+		int locJ = representation[j];
+
+		// Swap logic for adding costs
+		if (i + 1 == j) { // If i and j are adjacent
+			delta -= f.getCost(prevI, locI);
+			delta -= f.getCost(locJ, nextJ);
+			delta += f.getCost(prevI, locJ);
+			delta += f.getCost(nextJ, locI);
+		} else if(j + 1 == i) { // If j and i are adjacent
+			delta -= f.getCost(prevJ, locJ);
+			delta -= f.getCost(locI, nextI);
+			delta += f.getCost(prevJ, locI);
+			delta += f.getCost(nextI, locJ);
+
+		} // If i and j are not adjacent, then swap the connections around i and j
+		else {
+			// Non-adjacent general case
+			delta -= f.getCost(prevI, locI);
+			delta -= f.getCost(locI, nextI);
+			delta -= f.getCost(prevJ, locJ);
+			delta -= f.getCost(locJ, nextJ);
+
+			delta += f.getCost(prevI, locJ);
+			delta += f.getCost(locJ, nextI);
+			delta += f.getCost(prevJ, locI);
+			delta += f.getCost(locI, nextJ);
+		}
+
+		return delta;
+	}
+
 }

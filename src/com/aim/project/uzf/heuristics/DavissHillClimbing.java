@@ -4,6 +4,7 @@ import java.util.Random;
 
 import com.aim.project.uzf.interfaces.HeuristicInterface;
 import com.aim.project.uzf.interfaces.UAVSolutionInterface;
+import com.aim.project.uzf.solution.SolutionRepresentation;
 
 
 /**
@@ -35,13 +36,26 @@ public class DavissHillClimbing extends HeuristicOperators implements HeuristicI
 			int[] perm = shufflePermutation(representation.clone(), random);
 
 			for(int j = 0; j < length; j++) {
-				swapIndex(representation, perm[j], perm[(j + 1) % length]);
+				representation = solution.getSolutionRepresentation().getSolutionRepresentation().clone();
+				int delta = calculateSwapDelta(representation, perm[j], perm[(j + 1) % length]);
 
-				if(compareRepresentation(representation, solution.getSolutionRepresentation().getSolutionRepresentation(), true)) {
-					solution.getSolutionRepresentation().setSolutionRepresentation(representation);
-				} else {
+				if(delta <= 0) {
+					// Swap the elements if the new representation is better
 					swapIndex(representation, perm[j], perm[(j + 1) % length]);
+					solution.getSolutionRepresentation().setSolutionRepresentation(representation);
 				}
+
+//				swapIndex(representation, perm[j], perm[(j + 1) % length]);
+//				int realDelta = f.getObjectiveFunctionValue(new SolutionRepresentation(representation)) - f.getObjectiveFunctionValue(solution.getSolutionRepresentation());
+//				if(delta != realDelta){
+//					System.out.println("Wrong!");
+//				}
+//
+//				if(compareRepresentation(representation, solution.getSolutionRepresentation().getSolutionRepresentation(), true)) {
+//					solution.getSolutionRepresentation().setSolutionRepresentation(representation);
+//				} else {
+//					swapIndex(representation, perm[j], perm[(j + 1) % length]);
+//				}
 
 			}
 		}

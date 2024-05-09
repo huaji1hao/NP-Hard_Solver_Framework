@@ -20,7 +20,6 @@ public class UZFDomain extends ProblemDomain implements Visualisable {
 	private final int[] mutations;
 	private final int[] localSearches;
 	private final int[] crossovers;
-	private final int[] ruin_recreate;
 
 	private UAVSolutionInterface[] solutionMemory;
 	private UAVSolutionInterface bestEverSolution;
@@ -29,10 +28,9 @@ public class UZFDomain extends ProblemDomain implements Visualisable {
 	public UZFDomain(long seed) {
 		// set default memory size and create the array of low-level heuristics
 		super(seed);
-		mutations = new int[]{3, 4};
-		localSearches = new int[]{0, 1, 2, 6, 7};
-		crossovers = new int[]{5};
-		ruin_recreate = new int[]{};
+		mutations = new int[]{3, 4, 7};
+		localSearches = new int[]{0, 1, 2, 6};
+		crossovers = new int[]{5, 8};
 
 		this.setDepthOfSearch(0.6);
 		this.setIntensityOfMutation(0.3);
@@ -75,6 +73,8 @@ public class UZFDomain extends ProblemDomain implements Visualisable {
 		XOHeuristicInterface heuristic;
 		if(hIndex == 5) {
 			heuristic = new PMX(rng);
+		} else if(hIndex == 8) {
+			heuristic = new OrderCrossover(rng);
 		} else {
 			return -1;
 		}
@@ -92,7 +92,7 @@ public class UZFDomain extends ProblemDomain implements Visualisable {
 	public String bestSolutionToString() {
 		StringBuilder s = new StringBuilder();
 		s.append("Best Solution Found:\n");
-		for(int i = 0; i < this.bestEverSolution.getNumberOfLocations(); ++i) {
+		for(int i = 0; i < this.bestEverSolution.getNumberOfLocations() - 1; ++i) {
 			s.append(this.bestEverSolution.getSolutionRepresentation().getSolutionRepresentation()[i]).append(" ");
 		}
 		s.append("Objective Function Value: ").append(this.bestEverSolution.getObjectiveFunctionValue()).append("\n");
@@ -104,7 +104,7 @@ public class UZFDomain extends ProblemDomain implements Visualisable {
 	public boolean compareSolutions(int a, int b) {
 		UZFSolution solutionA = (UZFSolution) solutionMemory[a];
 		UZFSolution solutionB = (UZFSolution) solutionMemory[b];
-		for(int i = 0; i < solutionA.getNumberOfLocations(); ++i) {
+		for(int i = 0; i < solutionA.getNumberOfLocations() - 1; ++i) {
 			if (solutionA.getSolutionRepresentation().getSolutionRepresentation()[i] != solutionB.getSolutionRepresentation().getSolutionRepresentation()[i]) {
 				return false;
 			}
@@ -136,7 +136,6 @@ public class UZFDomain extends ProblemDomain implements Visualisable {
         return switch (type) {
             case MUTATION -> this.mutations;
             case CROSSOVER -> this.crossovers;
-            case RUIN_RECREATE -> this.ruin_recreate;
             case LOCAL_SEARCH -> this.localSearches;
             default -> null;
         };
@@ -205,7 +204,7 @@ public class UZFDomain extends ProblemDomain implements Visualisable {
 		StringBuilder s = new StringBuilder();
 		int [] solution = this.solutionMemory[index].getSolutionRepresentation().getSolutionRepresentation();
 		s.append("Solution ").append(index).append(":\n");
-		for(int i = 0; i < this.solutionMemory[index].getNumberOfLocations(); ++i) {
+		for(int i = 0; i < this.solutionMemory[index].getNumberOfLocations() - 1; ++i) {
 			s.append(solution[i]).append(" ");
 		}
 		s.append("Objective Function Value: ").append(this.solutionMemory[index].getObjectiveFunctionValue()).append("\n");
@@ -235,6 +234,7 @@ public class UZFDomain extends ProblemDomain implements Visualisable {
 		// make sure we cannot modify the best solution accidentally after storing it!
 		if (bestEverSolution == null || solutionMemory[index].getObjectiveFunctionValue() < getBestSolutionValue()) {
 			bestEverSolution = solutionMemory[index].clone();
+			System.out.println("New best solution found: " + bestEverSolution.getObjectiveFunctionValue());
 		}
 	}
 	
@@ -251,9 +251,12 @@ public class UZFDomain extends ProblemDomain implements Visualisable {
 		return bestEverSolution.getSolutionRepresentation().getSolutionRepresentation();
 	}
 
+	/**
+	 * @return The ordering of the best solution as an array of Location objects.
+	 */
 	@Override
 	public Location[] getRouteOrderedByLocations() {
-		Location[] route = new Location[bestEverSolution.getNumberOfLocations() + 2];
+		Location[] route = new Location[bestEverSolution.getNumberOfLocations() + 1];
 		route[0] = instance.getLocationOfFoodPreparationArea();
 
 		int[] solution = bestEverSolution.getSolutionRepresentation().getSolutionRepresentation();

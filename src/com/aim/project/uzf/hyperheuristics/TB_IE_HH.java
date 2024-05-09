@@ -10,6 +10,7 @@ import java.util.*;
 /**
  * The tabu-based hyper-heuristic uses a tabu list to store recently applied heuristics.
  * Use simulated annealing to accept worse solutions with a probability based on the temperature.
+ * But the temperature is cooled down so quickly that it is not effective. So I uncommented it.
  */
 public class TB_IE_HH extends HyperHeuristic {
 

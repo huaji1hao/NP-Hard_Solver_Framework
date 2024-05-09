@@ -26,7 +26,8 @@ public class SolutionRepresentation implements SolutionRepresentationInterface {
 
 	@Override
 	public int getNumberOfLocations() {
-		return aiRepresentation.length;
+		// all locations and the food preparation area
+		return aiRepresentation.length + 1;
 	}
 
 	@Override
