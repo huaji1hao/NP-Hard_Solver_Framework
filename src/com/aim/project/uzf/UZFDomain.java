@@ -155,14 +155,14 @@ public class UZFDomain extends ProblemDomain implements Visualisable {
 
 	@Override
 	public int getNumberOfInstances() {
-		return 7;
+		return 9;
 	}
 
 	@Override
 	public void initialiseSolution(int index) {
 		// make sure that you also update the best solution!
 		solutionMemory[index] = instance.createSolution(InitialisationMode.CONSTRUCTIVE);
-//		solutionMemory[index] = instance.createSolution(InitialisationMode.RANDOM);
+		// solutionMemory[index] = instance.createSolution(InitialisationMode.RANDOM);
 		updateBestSolution(index);
 	}
 
@@ -178,6 +178,8 @@ public class UZFDomain extends ProblemDomain implements Visualisable {
 			case 4 -> Paths.get("instances/uzf/grid.uzf");
 			case 5 -> Paths.get("instances/uzf/clustered-enclosures.uzf");
             case 6 -> Paths.get("instances/uzf/chatgpt-instance-100-enclosures.uzf");
+            case 7 -> Paths.get("instances/uzf/initialisation-test-instance.uzf");
+            case 8 -> Paths.get("instances/uzf/unseen-large-instance.uzf");
             default -> throw new IllegalArgumentException("Invalid instance ID: " + instanceId);
         };
         instance = reader.readUZFInstance(path, rng);
@@ -270,5 +272,9 @@ public class UZFDomain extends ProblemDomain implements Visualisable {
 
 	public UAVSolutionInterface getBestSolution() {
 		return bestEverSolution;
+	}
+
+	public int[] getSolution(int i) {
+		return solutionMemory[i].getSolutionRepresentation().getSolutionRepresentation();
 	}
 }

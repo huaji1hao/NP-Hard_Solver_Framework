@@ -1,0 +1,21 @@
+NAME : test instance for initialisation
+COMMENT : created by warren g. jackson for project exam
+PREPARATION_AREA
+8 2
+ENCLOSURE_LOCATIONS
+10 2
+12 4
+14 8
+14 6
+10 14
+8 14
+2 10
+2 8
+6 14
+12 12
+2 6
+4 4
+6 2
+4 12
+14 10
+EOF
