@@ -6,7 +6,7 @@
 
 This project implements a suite of optimization algorithms focused on solving the UAV Animal Feeding Problem(**modified TSP**) using various heuristic and hyper-heuristic methods. 
 
-The goal is to efficiently find optimal or near-optimal routes for UAVs under different operational constraints.
+The goal is to find the optimal or near-optimal path for the UAV by efficiently traversing all points and returning to the starting point under different operational constraints.
 
 ## Features
 
