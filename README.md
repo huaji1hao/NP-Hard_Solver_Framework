@@ -1,5 +1,7 @@
 # UAV Animal Feeding Problem🦒
 
+[中文版 zh-CN](README.zh-CN.md)
+
 ## Overview🦈
 
 This project implements a suite of optimization algorithms focused on solving the UAV Animal Feeding Problem(**modified TSP**) using various heuristic and hyper-heuristic methods. 
@@ -81,3 +83,7 @@ Contributions to enhance or extend the project are welcome. Please adhere to the
 3. Make your changes and commit them (git commit -am 'Add some feature').
 4. Push to the branch (git push origin feature-branch).
 5. Open a new Pull Request.
+
+## Showcase
+
+<img src="https://eumcm.com/file/6fc729ea83e46e89dd523.png" width="560" height="720" />
